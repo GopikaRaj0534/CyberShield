@@ -2,30 +2,19 @@ package com.cybershield.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBConnection {
+    private static final String URL      = "jdbc:oracle:thin:@localhost:1521:XE";
+    private static final String USER     = "SYSTEM";
+    private static final String PASSWORD = "root"; // ← change this
 
-    public static Connection getConnection() {
-
-        Connection con = null;
-
+    public static Connection getConnection() throws SQLException {
         try {
-
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-
-            con = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@localhost:1521:XE",
-                    "system",
-                    "root");
-
-            System.out.println("Database Connected Successfully");
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
+            Class.forName("oracle.jdbc.OracleDriver");
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("Oracle JDBC Driver not found.", e);
         }
-
-        return con;
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
