@@ -1,0 +1,11 @@
+build/
+target/
+
+.project
+.classpath
+
+.settings/
+
+*.class
+
+src/main/webapp/WEB-INF/config.properties
